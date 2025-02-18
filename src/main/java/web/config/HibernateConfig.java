@@ -18,7 +18,7 @@ import java.util.Properties;
 
 @Configuration
 @PropertySource("classpath:db.properties")
-@EnableTransactionManagement
+@EnableTransactionManagement (proxyTargetClass = true)
 @ComponentScan(basePackages = {"web.model"}) // Укажите правильные пакеты
 public class HibernateConfig {
 
@@ -66,7 +66,7 @@ public class HibernateConfig {
     public Properties getHibernateProperties() {
         Properties properties = new Properties();
         properties.put("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");
-        properties.put("hibernate.hbm2ddl.auto", "create");
+        properties.put("hibernate.hbm2ddl.auto", "update");
         properties.put("hibernate.show_sql", "true");
         return properties;
     }
