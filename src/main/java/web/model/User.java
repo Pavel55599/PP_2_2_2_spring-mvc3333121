@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Objects;
 
-//создал сущность юзер, ВОЗМОЖНО БУДУТ НУЖНЫ ДОРАБОТКИ
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -19,13 +19,13 @@ public class User {
     @Column
     private String name;
 
+
     @Column
     private String lastName;
 
     public User() {}
 
-    public User(Long id, String name, String lastName) {
-        this.id = id;
+    public User( String name, String lastName) {
         this.name = name;
         this.lastName = lastName;
     }
@@ -51,6 +51,9 @@ public class User {
         return lastName;
     }
 
+//    public void setLastName() {
+//        this.lastName = lastName;
+//    }
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
@@ -68,7 +71,7 @@ public class User {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return id == user.id && Objects.equals(name, user.name) && Objects.equals(lastName, user.lastName);
+        return Objects.equals(id, user.id) && Objects.equals(name, user.name) && Objects.equals(lastName, user.lastName);
     }
 
     @Override

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import web.dao.UserDao;
 import web.model.User;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 
@@ -16,32 +17,33 @@ public class UserServiceImpl implements UserService {
   
 
     @Override
-    public void save(User user) {
+    @Transactional
+    public void save(User user) { //   СОХРАНЕНИЕ/СОЗДАНИЕ
         userDao.save(user);
 
     }
 
     @Override
-    public User findById(Long id) {
+    public User findById(Long id) {//  ПОИСК ПО ИД   /show
         return userDao.findById(id);
-//        return null;
     }
 
     @Override
-    public List<User> findAll() {
+    public List<User> findAll() {//  ЧТЕНИЕ   /indexuserlist
         return userDao.findAll();
-//        return List.of();
     }
 
     @Override
-    public void update(User user) {
-        userDao.update(user);
+    @Transactional
+    public void update(Long id,User user) {//   ОБНОВЛЕНИЕ/edit/PATCH-запрос
+        userDao.update(id, user);
 
     }
 
+    @Transactional
     @Override
-    public void delete(User user) {
-        userDao.delete(user);
+    public void delete(Long id) {//   УДАЛЕНИЕ
+        userDao.delete(id);
 
     }
 }
