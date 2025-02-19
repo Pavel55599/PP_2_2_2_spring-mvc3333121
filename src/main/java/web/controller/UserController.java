@@ -3,7 +3,13 @@ package web.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ModelAttribute;
+
 import web.model.User;
 import web.service.UserService;
 
@@ -13,28 +19,28 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    // Вывод на экран всех пользователей
+
     @GetMapping
     public String indexUsers(Model model) {
         model.addAttribute("users", userService.findAll());
         return "users/indexuserlist";
     }
 
-    // Информация о пользователе по ид
+
     @GetMapping("/show")
     public String show(@RequestParam("id") Long id, Model model) {
         model.addAttribute("user", userService.findById(id));
         return "users/show";
     }
 
-   // создание нового пользователя
+
     @GetMapping("/new")
     public String newUser(Model model) {
         model.addAttribute("user", new User());
         return "users/new";
     }
 
-    @PostMapping()
+    @PostMapping
     public String createUser(@ModelAttribute("user") User user) {
         userService.save(user);
         return "redirect:/users";
